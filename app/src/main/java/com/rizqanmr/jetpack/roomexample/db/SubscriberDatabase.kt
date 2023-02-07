@@ -1,18 +1,26 @@
 package com.rizqanmr.jetpack.roomexample.db
 
 import android.content.Context
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import androidx.room.migration.AutoMigrationSpec
 
 @Database(
     entities = [Subscriber::class],
-    version = 2,
-    autoMigrations = [AutoMigration(from = 1, to = 2)])
+    version = 4,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3, spec = SubscriberDatabase.Migration2to3::class),
+        AutoMigration(from = 3, to = 4, spec = SubscriberDatabase.Migration3to4::class)
+    ]
+)
 abstract class SubscriberDatabase : RoomDatabase() {
 
     abstract val subscriberDAO: SubscriberDAO
+
+    @RenameColumn(tableName = "subscriber_data_table", fromColumnName = "subscriber_phone", toColumnName = "phone")
+    class Migration2to3 : AutoMigrationSpec
+    @RenameColumn(tableName = "subscriber_data_table", fromColumnName = "subscriber_phone", toColumnName = "phone")
+    class Migration3to4 : AutoMigrationSpec
 
     companion object {
         @Volatile
