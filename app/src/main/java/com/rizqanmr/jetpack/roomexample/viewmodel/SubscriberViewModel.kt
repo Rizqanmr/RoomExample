@@ -17,6 +17,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
 
     val inputName = MutableLiveData<String>()
     val inputEmail = MutableLiveData<String>()
+    val inputPhone = MutableLiveData<String>()
     val saveOrUpdateButton = MutableLiveData<String>()
     val clearAllOrDeleteButton = MutableLiveData<String>()
 
@@ -43,13 +44,16 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
             if (isUpdateOrDelete) {
                 subscriberToUpdateOrDelete.name = inputName.value.orEmpty()
                 subscriberToUpdateOrDelete.email = inputEmail.value.orEmpty()
+                subscriberToUpdateOrDelete.phone = inputPhone.value.orEmpty()
                 update(subscriberToUpdateOrDelete)
             } else {
                 val name = inputName.value.orEmpty()
                 val email = inputEmail.value.orEmpty()
-                insert(Subscriber(0, name, email))
+                val phone = inputPhone.value.orEmpty()
+                insert(Subscriber(0, name, email, phone))
                 inputName.value = ""
                 inputEmail.value = ""
+                inputPhone.value = ""
             }
         }
     }
@@ -80,6 +84,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
             if (numberOfRows > 0) {
                 inputName.value = ""
                 inputEmail.value = ""
+                inputPhone.value = ""
                 isUpdateOrDelete = false
                 saveOrUpdateButton.value = "Save"
                 clearAllOrDeleteButton.value = "Clear All"
@@ -96,6 +101,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
             if (numberOfRowsDeleted > 0) {
                 inputName.value = ""
                 inputEmail.value = ""
+                inputPhone.value = ""
                 isUpdateOrDelete = false
                 saveOrUpdateButton.value = "Save"
                 clearAllOrDeleteButton.value = "Clear All"
@@ -120,6 +126,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
     fun initUpdateAndDelete(subscriber: Subscriber) {
         inputName.value = subscriber.name
         inputEmail.value = subscriber.email
+        inputPhone.value = subscriber.phone
         isUpdateOrDelete = true
         subscriberToUpdateOrDelete = subscriber
         saveOrUpdateButton.value = "Update"

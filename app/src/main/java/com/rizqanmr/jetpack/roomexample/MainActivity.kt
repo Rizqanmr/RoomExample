@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         binding.rvSubscriber.layoutManager = LinearLayoutManager(this)
-        adapter = SubscriberAdapter(
-            {selectedItem: Subscriber -> listItemClicked(selectedItem)}
-        )
+        adapter = SubscriberAdapter { selectedItem: Subscriber -> listItemClicked(selectedItem) }
         binding.rvSubscriber.adapter = adapter
         showSubscribersList()
     }

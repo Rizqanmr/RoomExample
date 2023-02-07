@@ -32,12 +32,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:ems="10"
             android:text="@={myViewModel.inputEmail}"
             android:hint="Subscriber's Email"
             android:inputType="textEmailAddress"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:text="@={myViewModel.inputPhone}"
+            android:hint="Subscriber's Phone"
+            android:inputType="text|phone"
             android:textStyle="bold" />
 
         <LinearLayout
